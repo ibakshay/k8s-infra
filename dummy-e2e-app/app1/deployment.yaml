@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nest-play-app-1
+  labels:
+    app: nest-play-app-1
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nest-play-app-1
+  template:
+    metadata:
+      name: nest-play
+      labels:
+        app: nest-play-app-1
+    spec:
+      containers:
+        - name: nest-backend
+          image: docker.io/ibakshay/nest-play:1.0.1
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              cpu: "1"
+ #             ephemeral-storage: 1Gi                                                                                                                                                                                    │
+              memory: 512Mi
+            limits:
+              cpu: "1"
+#              ephemeral-storage: 1Gi                                                                                                                                                                                    │
+              memory: 512Mi
+          volumeMounts:
+            - name: secret-env-variables
+              # Path within the container at which the volume should be mounted. NOTE: check the working directory (WORKDIR in the DockerFile to find the base path of the mount path)
+              mountPath: ./usr/src/app/.env
+            # Path within the volume from which the container's volume should be mounted. Defaults to "" (volume's root).
+            # NOTE: the k8s secret should have already been created with .env as the key (k create secret generic environment-variables --from-file=.env)
+              subPath: .env
+      restartPolicy: Always
+      volumes:
+        - name: secret-env-variables
+          secret:
+            # the k8s secret should have already been created with .env as the key (k create secret generic environment-variables --from-file=.env)
+            secretName: environment-variables
+
