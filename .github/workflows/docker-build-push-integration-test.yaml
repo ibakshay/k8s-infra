@@ -92,7 +92,6 @@ jobs:
         with:
           image-ref: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
           ignore-unfixed: true
-          # exit-code: "1"
           format: "sarif"
           output: "trivy-results.sarif"
           severity: "CRITICAL,HIGH"
