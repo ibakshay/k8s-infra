@@ -1,4 +1,4 @@
-name: Build and Push Integration test Docker Image
+name: Build and Publish Integration test Image
 
 on:
   workflow_dispatch: {}
