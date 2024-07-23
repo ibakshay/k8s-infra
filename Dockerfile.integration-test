@@ -4,7 +4,7 @@ ARG KUBECTL_VERSION=v1.30.2
 
 # Add packages
 RUN apk upgrade --no-cache --no-progress \  
-&& apk --no-cache --no progress add curl git bash \  
+&& apk --no-cache --no-progress add curl git bash \  
 && apk del --no-cache --no-progress apk-tools alpine-keys
 
 # Install kubectl binary
