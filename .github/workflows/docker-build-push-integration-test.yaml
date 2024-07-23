@@ -59,7 +59,6 @@ jobs:
             type=schedule
             type=raw,value=${{ github.sha }}
             type=sha,enable=true,format=short,prefix=
-            type=edge,branch=master
       - name: Build and push Docker image
         id: build-and-push
         uses: docker/build-push-action@v6
@@ -96,7 +95,7 @@ jobs:
           # exit-code: "1"
           format: "sarif"
           output: "trivy-results.sarif"
-          # severity: "CRITICAL,HIGH"
+          severity: "CRITICAL,HIGH"
 
       - name: Upload Trivy scan results to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v3
