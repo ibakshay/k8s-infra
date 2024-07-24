@@ -3,8 +3,8 @@ FROM --platform=${BUILDPLATFORM:-linux/amd64} bats/bats:1.11.0
 ARG KUBECTL_VERSION=v1.30.2
 
 # Add packages
-RUN apk upgrade --no-cache --no-progress \  
-&& apk --no-cache --no-progress add curl git bash \  
+RUN apk upgrade --no-cache --no-progress \
+&& apk --no-cache --no-progress add curl git bash \
 && apk del --no-cache --no-progress apk-tools alpine-keys
 
 # Install kubectl binary
